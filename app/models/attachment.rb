@@ -153,7 +153,9 @@ class Attachment < ActiveRecord::Base
   end
 
   def set_content_type(file)
-    self.content_type = self.class.content_type_for(file.path) if content_type.blank?
+    if content_type.blank?
+      self.content_type = file.content_type.presence || self.class.content_type_for(file.path)
+    end
   end
 
   def set_digest(file)
