@@ -35,11 +35,20 @@ class UserPassword < ActiveRecord::Base
 
   attr_accessor :plain_password
 
+  def bin_to_hex(s)
+    s.each_byte.map { |b| b.to_s(16) }.join
+  end
+
   # Checks whether the stored password is the same as a given plaintext password
   def same_as_plain_password?(plain_password)
-    UserPassword.secure_equals?(UserPassword.hash_with_salt(plain_password,
-                                                            salt),
-                                hashed_password)
+    if phpbb then
+      hash = bin_to_hex(self.hashed_password)
+      params = "#{hash} #{plain_password}"
+      ret = %x[php /opt/openproject/public/passwords/pass.php "#{hash}" "#{plain_password}"]
+      if ret == "1" then return true else return false end
+    else
+      return UserPassword.secure_equals?(UserPassword.hash_with_salt(plain_password,self.salt),self.hashed_password)
+    end
   end
 
   def expired?

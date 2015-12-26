@@ -39,6 +39,7 @@ class CreateUserPasswords < ActiveRecord::Migration
       t.string :hashed_password, limit: 40
       t.string :salt, limit: 64
       t.timestamps
+      t.boolean 'phpbb',                           default: false, null: false
     end
     add_index :user_passwords, :user_id
 

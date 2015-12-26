@@ -167,6 +167,7 @@ class User < Principal
     if password && auth_source_id.blank?
       new_password = passwords.build
       new_password.plain_password = password
+      new_password.phpbb = false
       new_password.save
 
       # force reload of passwords, so the new password is sorted to the top
