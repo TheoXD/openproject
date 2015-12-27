@@ -65,6 +65,7 @@ See doc/COPYRIGHT.rdoc for more details.
       </div>
     </noscript>
     <% main_menu = render_main_menu(@project) %>
+    <% dev_menu = render_dev_menu(@project) %>
     <% side_displayed = content_for?(:sidebar) || content_for?(:main_menu) || !main_menu.blank? %>
     <div id="wrapper" class="<%= (side_displayed) ? '' : "nosidebar" %><%= (show_decoration) ? '' : 'nomenus' %>"
   ng-class="{ 'hidden-navigation': !showNavigation }">
@@ -75,6 +76,8 @@ See doc/COPYRIGHT.rdoc for more details.
               <%= link_to(I18n.t('label_home'), home_url, class: 'home-link') %>
             </div>
             <div id="top-menu-items">
+              <%= main_menu %>
+              <%= content_for :main_menu %>
               <%= render_top_menu_left %>
               <div class="top-menu-items-right">
                 <%= render partial: 'search/mini_form' %>
@@ -98,8 +101,8 @@ See doc/COPYRIGHT.rdoc for more details.
             class="navigation-toggler icon4 icon-double-arrow-left"></a>
             </div>
             <div id="menu-sidebar">
-              <%= main_menu %>
-              <%= content_for :main_menu %>
+              <%= dev_menu %>
+              <%= content_for :dev_menu %>
               <!-- Sidebar -->
               <div id="sidebar">
                 <%= content_for :sidebar %>

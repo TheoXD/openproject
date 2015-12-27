@@ -44,6 +44,14 @@ module Redmine::MenuManager::MenuHelper
     end
     render_menu((project && !project.new_record?) ? :project_menu : :application_menu, project)
   end
+  
+def render_dev_menu(project)
+    if project
+      build_wiki_menus(project)
+      build_work_packages_menu(project)
+    end
+    render_menu((project && !project.new_record?) ? :project_dev_menu : :application_menu, project)
+  end
 
   def build_wiki_menus(project)
     return unless project.enabled_module_names.include? 'wiki'

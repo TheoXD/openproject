@@ -189,23 +189,19 @@ Redmine::MenuManager.map :admin_menu do |menu|
             html: { class: 'icon2 icon-types' }
 end
 
-Redmine::MenuManager.map :project_menu do |menu|
-  menu.push :overview,
-            { controller: '/projects', action: 'show' },
-            html: { class: 'icon2 icon-show-all-projects' }
-
+Redmine::MenuManager.map :project_dev_menu do |menu|
   menu.push :activity,
             { controller: '/activities', action: 'index' },
             param: :project_id,
             if: Proc.new { |p| p.module_enabled?('activity') },
             html: { class: 'icon2 icon-checkmark' }
-
+            
   menu.push :roadmap,
             { controller: '/versions', action: 'index' },
             param: :project_id,
             if: Proc.new { |p| p.shared_versions.any? },
             html: { class: 'icon2 icon-roadmap' }
-
+            
   menu.push :work_packages,
             { controller: '/work_packages', action: 'index' },
             param: :project_id,
@@ -216,14 +212,14 @@ Redmine::MenuManager.map :project_menu do |menu|
               'data-ui-route' => '',
               query_menu_item: 'query_menu_item'
             }
-
+            
   menu.push :summary_field,
             { controller: '/work_packages/reports', action: 'report' },
             param: :project_id,
             caption: :label_workflow_summary,
             parent: :work_packages,
             html: { class: 'icon2 icon-chart3' }
-
+            
   menu.push :timelines,
             { controller: '/timelines', action: 'index' },
             param: :project_id,
@@ -235,6 +231,38 @@ Redmine::MenuManager.map :project_menu do |menu|
             param: :project_id,
             caption: :label_calendar,
             html: { class: 'icon2 icon-calendar' }
+            
+  menu.push :repository,
+            { controller: '/repositories', action: 'show' },
+            param: :project_id,
+            if: Proc.new { |p| p.repository && !p.repository.new_record? },
+            html: { class: 'icon2 icon-folder-open' }
+
+  menu.push :time_entries,
+            { controller: '/timelog', action: 'index' },
+            param: :project_id,
+            if: -> (project) { User.current.allowed_to?(:view_time_entries, project) },
+            caption: :label_time_sheet_menu,
+            html: { class: 'icon2 icon-cost-reports' }
+            
+  menu.push :members,
+            { controller: :members, action: :index },
+            param: :project_id,
+            caption: :label_member_plural,
+            html: { class: 'icon2 icon-group' }
+            
+  menu.push :settings,
+            { controller: '/projects', action: 'settings' },
+            caption: :label_project_settings,
+            last: true,
+            html: { class: 'icon2 icon-settings2' }
+            
+end
+
+Redmine::MenuManager.map :project_menu do |menu|
+  menu.push :overview,
+            { controller: '/projects', action: 'show' },
+            html: { class: 'icon2 icon-show-all-projects' }
 
   menu.push :news,
             { controller: '/news', action: 'index' },
@@ -248,29 +276,4 @@ Redmine::MenuManager.map :project_menu do |menu|
             if: Proc.new { |p| p.boards.any? },
             caption: :label_board_plural,
             html: { class: 'icon2 icon-ticket-note' }
-
-  menu.push :repository,
-            { controller: '/repositories', action: 'show' },
-            param: :project_id,
-            if: Proc.new { |p| p.repository && !p.repository.new_record? },
-            html: { class: 'icon2 icon-folder-open' }
-
-  menu.push :time_entries,
-            { controller: '/timelog', action: 'index' },
-            param: :project_id,
-            if: -> (project) { User.current.allowed_to?(:view_time_entries, project) },
-            caption: :label_time_sheet_menu,
-            html: { class: 'icon2 icon-cost-reports' }
-
-  menu.push :members,
-            { controller: :members, action: :index },
-            param: :project_id,
-            caption: :label_member_plural,
-            html: { class: 'icon2 icon-group' }
-
-  menu.push :settings,
-            { controller: '/projects', action: 'settings' },
-            caption: :label_project_settings,
-            last: true,
-            html: { class: 'icon2 icon-settings2' }
 end
