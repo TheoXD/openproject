@@ -215,7 +215,38 @@ class ApplicationController < ActionController::Base
   end
 
   def set_localization
-    SetLocalizationService.new(User.current, request.env['HTTP_ACCEPT_LANGUAGE']).call
+    # SetLocalizationService.new(User.current, request.env['HTTP_ACCEPT_LANGUAGE']).call
+    
+    lang = nil
+    lang = find_language(User.current.language) if User.current.logged?
+    
+   # logger.debug(params.inspect)
+
+    if params[:project_id].blank?
+        if !params[:id].blank?
+           ###############if /\A\d+\z/.match(params[:id])
+              if params[:controller] == "messages"
+              	message = Message.find(params[:id])
+              	board = Board.find(message.board_id)
+              	project = Project.find(board.project_id)
+              end
+              if params[:controller] == "my_projects_overviews" or params[:controller] == "projects"
+                project = Project.find(params[:id])
+              end
+        end
+    else
+        project = Project.find(params[:project_id]) 
+    end
+    
+    if project
+       lang = find_language(project.display_language)
+    end
+
+    if lang.nil? && request.env['HTTP_ACCEPT_LANGUAGE']
+      SetLocalizationService.new(User.current, request.env['HTTP_ACCEPT_LANGUAGE']).call
+    end
+    lang ||= Setting.default_language
+    set_language_if_valid(lang)
   end
 
   def require_login

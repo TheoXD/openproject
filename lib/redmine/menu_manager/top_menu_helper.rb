@@ -51,7 +51,7 @@ module Redmine::MenuManager::TopMenuHelper
 
     return '' if User.current.anonymous? and User.current.number_of_known_projects.zero?
 
-    link_to_all_projects = link_to l(:label_project_plural),
+    link_to_all_projects = link_to l(:general_lang_name),
                             { controller: '/projects',
                               action: 'index' },
                             title: l(:label_project_plural),

@@ -219,6 +219,7 @@ class PermittedParams
   def work_package
     params.require(:work_package).permit(:subject,
                                          :description,
+                                         :display_language,
                                          :start_date,
                                          :due_date,
                                          :note,
