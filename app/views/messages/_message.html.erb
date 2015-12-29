@@ -1,6 +1,6 @@
  <% if message.sticky? %>
   <h3>Best Answer:</h3> <br>
-    <div class="message reply" id="<%= "message-#{message.id}" %>" style="background:#B7E6C1; padding: 5px;">
+    <div class="message reply" id="<%= "message-#{message.id}" %>" style="background:#B7E6C1; padding: 5px; border-radius: 10px;">
  <% else %>
   <div class="message reply" id="<%= "message-#{message.id}" %>" style="padding: 5px;">
  <% end %>

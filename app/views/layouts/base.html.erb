@@ -76,9 +76,9 @@ See doc/COPYRIGHT.rdoc for more details.
               <%= link_to(I18n.t('label_home'), home_url, class: 'home-link') %>
             </div>
             <div id="top-menu-items">
+              <%= render_top_menu_left %>
               <%= main_menu %>
               <%= content_for :main_menu %>
-              <%= render_top_menu_left %>
               <div class="top-menu-items-right">
                 <%= render partial: 'search/mini_form' %>
                 <h1 class="hidden-for-sighted">
