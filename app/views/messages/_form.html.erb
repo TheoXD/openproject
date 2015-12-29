@@ -31,6 +31,11 @@ See doc/COPYRIGHT.rdoc for more details.
 <div class="form--field">
   <%= f.text_field :subject, required: true %>
 </div>
+<% if replying %>
+  <div class="form--field">
+    <%= f.check_box :sticky, label: "Best Answer" %>
+  </div>
+<% end %>
 <% unless replying %>
   <div class="form--field">
     <%= f.check_box :sticky, label: l(:label_board_sticky) %>
