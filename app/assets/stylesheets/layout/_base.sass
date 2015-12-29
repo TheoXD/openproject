@@ -39,7 +39,7 @@ body
 
 #wrapper
   @include default-transition
-  +background-image(linear-gradient(to bottom, $main-menu-bg-color 0%, $main-menu-bg-color 100%))
+  //+background-image(linear-gradient(to bottom, $main-menu-bg-color 0%, $main-menu-bg-color 100%))
   background-repeat: no-repeat
   background-size: $main-menu-width 100%
   min-height: 100%
@@ -49,6 +49,7 @@ body
     background: none
   &.hidden-navigation
     background-size: $main-menu-folded-width 100%
+  background: $primary-color
 
 
 #main
@@ -90,12 +91,15 @@ body
 
   &.hidden-navigation
     margin-left: $main-menu-folded-width
+    width: 60%
+    margin: 0px auto
+    min-width: 800px
 
     %absolute-layout-mode &
       width:    calc(100% - #{$main-menu-folded-width})
 
   &.nosidebar
-    margin-left: 0
+    //margin-left: 0
     padding: 20px 40px
 
     %absolute-layout-mode &

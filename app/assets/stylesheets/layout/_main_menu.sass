@@ -29,7 +29,7 @@
 $toggler-width: 40px
 
 @mixin highlight-left-item-border
-  border-left: $main-menu-selected-hover-indicator-width solid $main-menu-selected-hover-indicator-color
+  //border-left: $main-menu-selected-hover-indicator-width solid $main-menu-selected-hover-indicator-color
 
 @mixin toggle-menu-item-background($bg-color: $main-menu-bg-hover-selected-background, $color: $main-menu-selected-font-color)
   @include default-transition
@@ -58,7 +58,7 @@ $toggler-width: 40px
   width: $main-menu-width
   float: left
   left: 0
-  background-color: $main-menu-bg-color
+  background-color: $primary-color
   @include default-transition
 
   %absolute-layout-mode &
@@ -73,7 +73,7 @@ $toggler-width: 40px
     padding: 0
 
     &.menu_root
-      border-right: $main-menu-border-width solid $main-menu-border-color
+      //border-right: $main-menu-border-width solid $main-menu-border-color
 
       // main menu items
       > li
@@ -89,7 +89,7 @@ $toggler-width: 40px
 
           // placeholder for highlighted left-item-border
           a:not(.toggler)
-            border-left: $main-menu-selected-hover-indicator-width solid $main-menu-bg-color
+            border-left: $main-menu-selected-hover-indicator-width solid $primary-color
             @extend .small-12
 
             &.selected
@@ -182,10 +182,10 @@ $toggler-width: 40px
     border-left: none
     height: $main-menu-item-height
     width: $main-menu-width
-    background-color: $main-menu-bg-color
+    //background-color: $main-menu-bg-color
     @include default-transition
     &:hover
-      background: $main-menu-bg-hover-selected-background
+      background: $primary-color-dark
     &.show
       width: $main-menu-folded-width
       a.navigation-toggler

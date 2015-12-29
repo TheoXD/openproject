@@ -126,7 +126,7 @@ def render_dev_menu(project)
     menu_items_for(menu, project) do |node|
       links << render_menu_node(node, project)
     end
-    links.empty? ? nil : content_tag('ul', links.join("\n").html_safe, class: 'menu_root')
+    links.empty? ? nil : content_tag('ul', links.join("\n").html_safe, class: 'menu_root account-nav')
   end
 
   def render_drop_down_menu_node(label, items_or_options_with_block = nil, html_options = {}, &_block)

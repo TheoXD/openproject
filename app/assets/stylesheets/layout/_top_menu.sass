@@ -27,10 +27,13 @@
 //++
 
 #logo
+  @include default-transition
   float: left
   width: $main-menu-width
   height: $header-height
   background-color: $header-logo-bg-color
+  &.hidden-navigation
+    background-color: $primary-color
   .home-link
     margin-top: 0px
     display: block
