@@ -48,6 +48,34 @@ class BoardsController < ApplicationController
       @board = @boards.first
       show
     end
+    
+    @date_to ||= Date.today + 1
+    @days = 3
+    @date_from = @date_to - @days
+    @author = (params[:user_id].blank? ? nil : User.active.find(params[:user_id]))
+    @activity = Redmine::Activity::Fetcher.new(User.current, project: @project,
+                                                             with_subprojects: false,
+                                                             author: @author)
+    events = @activity.events(@date_from, @date_to)
+
+    if events.empty? || stale?(etag: [@activity.scope, @date_to, @date_from, false, @author, events.first, User.current, current_language])
+      respond_to do |format|
+        format.html do
+          @events_by_day = events.group_by { |e| e.event_datetime.to_date }
+          render layout: false if request.xhr?
+        end
+        format.atom do
+          title = l(:label_activity)
+          if @author
+            title = @author.name
+          elsif @activity.scope.size == 1
+            title = l("label_#{@activity.scope.first.singularize}_plural")
+          end
+          render_feed(events, title: "#{@project || Setting.app_title}: #{title}")
+        end
+      end
+    end
+
   end
 
   def show
