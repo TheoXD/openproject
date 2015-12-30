@@ -135,8 +135,19 @@ See doc/COPYRIGHT.rdoc for more details.
     </div>
     <% if (show_decoration) %>
       <div id="footer">
-        <div class="footer-content">
-          <%= footer_content %>
+        <div class="footer-content" width="100%">
+          <table width="100%"><tr>
+          <td width="33%">&copy; 2007-2015 Juan Linietsky, Ariel Manzur.</td>
+          <td width="33%">
+            <a href="https://github.com/okamstudio/godot"><img src="/images/github.png"></a>
+            <a href="https://facebook.com/groups/godotengine"><img src="/images/facebook.png"></a>
+            <a href="https://twitter.com/godotengine"><img src="/images/twitter.png"></a>
+            <a href="https://www.reddit.com/r/godot"><img src="/images/reddit.png"></a>
+          </td>
+          <td width="33%">
+             <%= footer_content %>
+          </td>
+          </tr></table>
         </div>
       </div>
     <% end %>
